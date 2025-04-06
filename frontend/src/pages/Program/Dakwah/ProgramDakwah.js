@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {  useNavigate } from "react-router-dom";
 import "../../../styles.css";
 
 const ProgramDakwah = () => {
   const Navigate = useNavigate();
-  const [openDropdown, setOpenDropdown] = useState(null);
+  // const [openDropdown, setOpenDropdown] = useState(null);
 
-  const toggleDropdown = (category) => {
-    setOpenDropdown(openDropdown === category ? null : category);
-  };
+  // const toggleDropdown = (category) => {
+  //   setOpenDropdown(openDropdown === category ? null : category);
+  // };
 
   return (
     <div className="program-page">
@@ -40,7 +40,7 @@ const ProgramDakwah = () => {
       </p>
 
       {/* List Kegiatan dengan tombol dropdown */}
-      <div className="activity-list">
+      {/* <div className="activity-list">
         <button className="activity-button" onClick={() => toggleDropdown("dakwah")}>
           Persyaratan Permohonan Bantuan
         </button>
@@ -60,7 +60,7 @@ const ProgramDakwah = () => {
           </button>
         </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

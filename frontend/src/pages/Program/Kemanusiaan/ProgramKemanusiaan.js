@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../styles.css";
 
 const ProgramKemanusiaan = () => {
   const Navigate = useNavigate();
-  const [openDropdown, setOpenDropdown] = useState(null);
+  // const [openDropdown, setOpenDropdown] = useState(null);
 
-  const toggleDropdown = (category) => {
-    setOpenDropdown(openDropdown === category ? null : category);
-  };
+  // const toggleDropdown = (category) => {
+  //   setOpenDropdown(openDropdown === category ? null : category);
+  // };
 
   return (
     <div className="program-page">
       <button className="back-button" onClick={() => Navigate("/Home")}>
-        &#8592; 
+        &#8592;
       </button>
 
       <h2 className="program-title">Program Kemanusiaan</h2>
@@ -22,23 +22,30 @@ const ProgramKemanusiaan = () => {
       <h4 className="section-subtitle">Ramadhan Berbagi</h4>
       <h4 className="section-subtitle">1. Paket Sembako Ceria</h4>
       <p className="program-description">
-        Santunan yang diberikan kepada Mustahik yang tergolong fakir/miskin dalam bentuk sembako untuk membantu masyarakat Kota Padang dalam memenuhi kebutuhannya khususnya di bulan puasa dan menjelang lebaran.
+        Santunan yang diberikan kepada Mustahik yang tergolong fakir/miskin
+        dalam bentuk sembako untuk membantu masyarakat Kota Padang dalam
+        memenuhi kebutuhannya khususnya di bulan puasa dan menjelang lebaran.
       </p>
       <h5 className="syarat">Syarat</h5>
 
       <h4 className="section-subtitle">2. Santunan Yatim</h4>
       <p className="program-description">
-        Bantuan yang diberikan kepada anak yatim/yatim piatu. Untuk membantu anak yatim/yatim piatu memenuhi kebutuhan dasar.
+        Bantuan yang diberikan kepada anak yatim/yatim piatu. Untuk membantu
+        anak yatim/yatim piatu memenuhi kebutuhan dasar.
       </p>
 
       <h3 className="section-title">Kebencanaan</h3>
       <p className="program-description">
-        <img src="/assets/kebencanaan.jpeg" alt="Program" className="program-image" />
+        <img
+          src="/assets/kebencanaan.jpeg"
+          alt="Program"
+          className="program-image"
+        />
         Injdbjdfbd... (your detailed description)
       </p>
 
-      <h3 className="section-title">Syarat Permohonan Bantuan</h3>
-      <div className="activity-list">
+      {/* <h3 className="section-title">Syarat Permohonan Bantuan</h3> */}
+      {/* <div className="activity-list">
         <button className="activity-button" onClick={() => toggleDropdown("lansia")}>
           Kategori Lansia
         </button>
@@ -101,7 +108,7 @@ const ProgramKemanusiaan = () => {
             </button>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

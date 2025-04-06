@@ -173,7 +173,7 @@ button {
 }
 
 .onboarding-card button {
-  background-color: #ffffff ;
+  background-color: #ffffff;
   color: #3ea266 !important;
   border: none !important;
   padding: 12px 20px !important;
@@ -184,7 +184,7 @@ button {
 }
 
 button:hover {
-  background-color: #e0e0e0 ;
+  background-color: #e0e0e0;
 }
 
 .auth-container {
@@ -272,7 +272,7 @@ button:hover {
 
 /* Container */
 .forgot-password-container {
-  max-width: 420px !important;
+  max-width: 100% !important;
   margin: 0 auto !important;
   padding: 20px !important;
   background: white !important;
@@ -348,6 +348,7 @@ input::placeholder {
   cursor: pointer !important;
   text-align: center !important;
   transition: 0.3s !important;
+  margin-top: 380px !important;
 }
 
 .submit-button:hover {
@@ -355,7 +356,7 @@ input::placeholder {
 }
 
 /* Responsive */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .forgot-password-container {
     padding: 15px !important;
   }
@@ -368,7 +369,7 @@ input::placeholder {
   padding: 20px 0;
   font-family: "Poppins", sans-serif;
   background-color: #ffffff;
-  background-image: url('C:/Users/User/app_mobile/frontend/public/assets/bg.png'); /* Ganti dengan path gambar */
+  background-image: url("C:/Users/User/app_mobile/frontend/public/assets/bg.png"); /* Ganti dengan path gambar */
   background-size: cover; /* Menutupi seluruh area */
   background-position: center; /* Menengahkan gambar */
   background-repeat: no-repeat; /* Jangan ulangi gambar */
@@ -385,7 +386,6 @@ input::placeholder {
   background: #fff;
   text-align: center;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  
 }
 
 /* Header */
@@ -453,20 +453,20 @@ input::placeholder {
 }
 
 /* Tombol Submit */
-.submit-button {
+.button-reset {
   width: 100%;
-  padding: 16px;
+  padding: 12px;
   background-color: #269448;
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.submit-button:hover {
+.button-reset:hover {
   background-color: #1f7a3c;
   transform: scale(1.02);
 }
@@ -491,9 +491,6 @@ input::placeholder {
     padding: 14px;
   }
 }
-
-
-
 
 /* STYLING HOME */
 
@@ -782,13 +779,14 @@ CFormInput[type="file"] {
 }
 
 CFormCheck {
-  accent-color: #136a31;
-  transform: scale(1.2);
-  margin-right: 10px;
+  accent-color: #136a31 !important;
+  transform: scale(1.2) !important;
+  margin-right: 10px !important;
 }
 
 /* Submit Button */
 .d-flex.justify-content-center CButton {
+  color: #ffffff;
   background-color: #269448;
   border: none;
   font-size: 16px;
@@ -800,7 +798,6 @@ CFormCheck {
 .d-flex.justify-content-center CButton:hover {
   background-color: #218140;
 }
-
 
 /*STYLING AKUN*/
 
@@ -905,7 +902,7 @@ CFormCheck {
 /*STYLING PROFIL*/
 
 .profile-container {
-  background-image: url('C:/Users/User/app_mobile/frontend/public/assets/bg.png'); /* Ganti dengan path gambar */
+  background-image: url("C:/Users/User/app_mobile/frontend/public/assets/bg.png"); /* Ganti dengan path gambar */
   background-size: cover; /* Menutupi seluruh area */
   background-position: center; /* Menengahkan gambar */
   background-repeat: no-repeat; /* Jangan ulangi gambar */
@@ -1062,7 +1059,7 @@ CFormCheck {
 
 /* Foto Profil */
 .profile-image-section {
-  position: relative ;
+  position: relative;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -1254,26 +1251,43 @@ input {
 }
 
 /* STYLING PENGAJUAN */
-.dropend-container {
+.pengajuan-page {
+  max-width: 100%;
+  padding: 20px 0;
+  background-color: #ffffff;
+  background-image: url("C:/Users/User/app_mobile/frontend/public/assets/bg.png"); /* Ganti dengan path gambar */
+  background-size: cover; /* Menutupi seluruh area */
+  background-position: center; /* Menengahkan gambar */
+  background-repeat: no-repeat; /* Jangan ulangi gambar */
+  background-attachment: fixed;
+}
+
+.dropdown-container {
+  background-color: #ffffff;
+  margin: 100px auto;
+  padding: 20px;
   display: flex !important;
   flex-direction: column !important;
   gap: 10px !important;
-  margin-top: 30px !important;
   align-items: center;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  padding-bottom: 300px;
 }
 
 .btn-group {
   position: relative !important;
   background-color: #269448 !important;
-  position: relative !important;
   width: 300px !important;
   border-radius: 8px !important;
+  padding: 0;
 }
 
-.btn-group .btn,
+.btn-group .btn-program,
 .btn-group .dropdown-toggle {
-  background-color: #269448 !important; 
-  border-color: #269448 !important;
+  background-color: #269448 !important;
+  color: #ffffff;
+  border: none;
   font-size: 14px !important;
   font-weight: bold !important;
   width: 100%;
@@ -1281,7 +1295,6 @@ input {
 
 .dropdown-menu {
   display: none !important;
-  position: absolute !important;
   left: 0 !important;
   top: 100% !important;
   background: #269448 !important;
@@ -1289,13 +1302,12 @@ input {
   padding: 10px !important;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important;
   width: 300px;
-  z-index: 1000 !important;
+  z-index: 1 !important;
 }
 
 .dropdown-menu.show {
   display: block !important;
 }
-
 
 .activity-list {
   display: flex;
@@ -1354,6 +1366,8 @@ input {
 }
 
 .dropdown-content ul {
+  position: relative;
+  display: block;
   list-style-type: none;
   padding: 15px 15px;
   margin: 0;
@@ -1364,5 +1378,3 @@ input {
   font-size: 12px;
   color: #ffffff;
 }
-
-
