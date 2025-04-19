@@ -1,18 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../../styles.css";
 
 const Navbar = () => {
-  const Navigate = useNavigate();
-  const Location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isIdle, setIsIdle] = useState(false);
+
+  useEffect(() => {
+    let idleTimer;
+    const resetIdleTimer = () => {
+      clearTimeout(idleTimer);
+      setIsIdle(false);
+      // Sembunyikan navbar setelah 5 detik tidak ada aktivitas
+      idleTimer = setTimeout(() => setIsIdle(true), 5000);
+    };
+
+    ["mousemove", "scroll", "keydown", "touchstart"].forEach((evt) =>
+      window.addEventListener(evt, resetIdleTimer)
+    );
+
+    resetIdleTimer(); // mulai timer saat mount
+
+    return () => {
+      clearTimeout(idleTimer);
+      ["mousemove", "scroll", "keydown", "touchstart"].forEach((evt) =>
+        window.removeEventListener(evt, resetIdleTimer)
+      );
+    };
+  }, []);
 
   return (
-    <div className="dock">
-      <button href="https://wa.me/81180103146?text=Halo admin, ada yang ingin saya tanyakan.">
+    <div className={`dock ${isIdle ? "dock-hidden" : ""}`}>
+      <button
+        onClick={() =>
+          window.open(
+            "https://wa.me/81180103146?text=Halo%20admin,%20ada%20yang%20ingin%20saya%20tanyakan.",
+            "_blank"
+          )
+        }
+      >
         <svg
           stroke="currentColor"
           fill="currentColor"
-          stroke-width="0"
+          strokeWidth="0"
           viewBox="0 0 256 256"
           height="24"
           width="24"
@@ -24,8 +55,8 @@ const Navbar = () => {
       </button>
 
       <button
-        className={Location.pathname === "/Home" ? "dock-active" : ""}
-        onClick={() => Navigate("/Home")}
+        className={location.pathname === "/Home" ? "dock-active" : ""}
+        onClick={() => navigate("/Home")}
       >
         <svg
           className="size-[0.5em]"
@@ -65,8 +96,8 @@ const Navbar = () => {
       </button>
 
       <button
-        className={Location.pathname === "/Pengajuan" ? "dock-active" : ""}
-        onClick={() => Navigate("/Pengajuan")}
+        className={location.pathname === "/Pengajuan" ? "dock-active" : ""}
+        onClick={() => navigate("/Pengajuan")}
       >
         <svg
           className="size-[0.5em]"
@@ -78,14 +109,14 @@ const Navbar = () => {
             stroke="currentColor"
             strokeWidth="38"
             d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM216 408c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-102.1-31 31c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l72-72c9.4-9.4 24.6-9.4 33.9 0l72 72c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-31-31L216 408z"
-          />
+          ></path>
         </svg>
-
         <span className="dock-label">Pengajuan</span>
       </button>
+
       <button
-        className={Location.pathname === "/Akun" ? "dock-active" : ""}
-        onClick={() => Navigate("/Akun")}
+        className={location.pathname === "/Akun" ? "dock-active" : ""}
+        onClick={() => navigate("/Akun")}
       >
         <svg
           className="size-[0.5em]"

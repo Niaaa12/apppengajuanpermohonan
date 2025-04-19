@@ -304,17 +304,14 @@ const FormPengajuan = () => {
             </div>
 
             {/* Checkbox */}
-            <div className="mb-3 d-flex align-items-center">
+            <div className="mb-3 d-flex align-items-center custom-checkbox-size">
               <CFormCheck
                 type="checkbox"
                 id="hasReceivedAssistance"
                 name="hasReceivedAssistance"
-                className="me-2"
+                label="&nbsp;&nbsp;Belum Pernah Menerima Bantuan dari BAZNAS"
                 onChange={handleChange}
               />
-              <CFormLabel htmlFor="hasReceivedAssistance">
-                Belum Pernah Menerima Bantuan dari BAZNAS
-              </CFormLabel>
             </div>
 
             {/* Tombol Submit */}

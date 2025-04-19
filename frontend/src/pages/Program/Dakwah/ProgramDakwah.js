@@ -14,7 +14,7 @@ const ProgramDakwah = () => {
     <div className="program-page">
       {/* Tombol Back */}
       <div className="program-bg">
-        <img src="/assets/bg.png" alt="bg" className="bg-img" />
+        {/* <img src="/assets/bg.png" alt="bg" className="bg-img" /> */}
         <button className="back-button" onClick={() => Navigate("/Home")}>
           &#8592; 
         </button>
