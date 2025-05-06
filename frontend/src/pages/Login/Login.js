@@ -1,46 +1,55 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logobaznas from '../../assets/LOGO_BAZNAS_PADANG.png';
+import logobaznas from "../../assets/LOGO_BAZNAS_PADANG.png";
 import "../../styles.css";
-
+import axios from "axios";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // State untuk pesan error
   const Navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault(); // Hindari reload halaman
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/user/login",
+        {
+          email,
+          password,
+        }
+      );
 
-    if (!email || !password) {
-      setError("Email dan Password harus diisi!");
-      return;
-    } else {
-      setError(""); // Reset error jika sudah diisi
+      // Simpan token dan data user ke localStorage
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      Navigate("/Home");
+    } catch (err) {
+      setError(err.response?.data?.message || "Login gagal");
     }
-
-    // Redirect ke halaman Home jika valid
-    Navigate("/Home");
   };
 
   return (
     <div className="auth-container">
       <div className="auth-box">
-        <img src={logobaznas} alt="Logo Baznas"/>
+        <img src={logobaznas} alt="Logo Baznas" />
         <h2>Welcome Back to BaznasCare</h2>
-        <p>Nikmati kemudahan sistem autentikasi tunggal untuk mengakses semua layanan dengan satu akun</p>
+        <p>
+          Nikmati kemudahan sistem autentikasi tunggal untuk mengakses semua
+          layanan dengan satu akun
+        </p>
 
         <form onSubmit={handleLogin}>
-          <input 
-            type="email" 
+          <input
+            type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <input 
-            type="password" 
-            placeholder="Password" 
+          <input
+            type="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -53,7 +62,9 @@ const Login = () => {
             <Link to="/ForgotPass">Forgot Password?</Link>
           </div>
 
-          <button type="submit" className="login-button">Login</button>
+          <button type="submit" className="login-button">
+            Login
+          </button>
         </form>
 
         <p>
