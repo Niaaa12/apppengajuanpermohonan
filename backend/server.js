@@ -2,9 +2,12 @@ const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
 require("dotenv").config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
@@ -25,12 +28,12 @@ db.connect((err) => {
 });
 
 // API Untuk Login
-app.post("/api/user/login", (req, res) => {
+app.post("/api/pemohon/login", (req, res) => {
   const { email, password } = req.body;
 
   // Cari user berdasarkan username
   const query = "SELECT * FROM users WHERE email = ?";
-  db.query(query, [emaiil], (err, results) => {
+  db.query(query, [email], (err, results) => {
     if (err) {
       return res.status(500).json({ message: "Database error", error: err });
     }
@@ -68,4 +71,7 @@ app.post("/api/user/login", (req, res) => {
       });
     });
   });
+});
+app.listen(PORT, () => {
+  console.log(`Server berjalan di http://localhost:${PORT}`);
 });

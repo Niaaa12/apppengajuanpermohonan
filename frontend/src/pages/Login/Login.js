@@ -7,23 +7,22 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // State untuk pesan error
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Hindari reload halaman
+    e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/user/login",
+        "http://localhost:5000/api/pemohon/login",
         {
           email,
           password,
         }
       );
 
-      // Simpan token dan data user ke localStorage
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      Navigate("/Home");
+      navigate("/home"); // <- lowercase, sesuai route yang kamu buat
     } catch (err) {
       setError(err.response?.data?.message || "Login gagal");
     }

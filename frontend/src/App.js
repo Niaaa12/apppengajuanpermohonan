@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import SplashScreen from "./pages/SplashScreen/SplashScreen";
 import Onboarding1 from "./pages/Onboarding/Onboarding1/Onboarding1";
 import Onboarding2 from "./pages/Onboarding/Onboarding2/Onboarding2";
@@ -21,11 +26,20 @@ import EditProfile from "./pages/Akun/Profil/Edit/EditProfil";
 import FAQ from "./pages/Akun/FAQ/FAQ";
 import CekStatus from "./pages/Akun/CekStatus/CekStatus";
 import Pengajuan from "./pages/Pengajuan/Pengajuan";
-import './scss/style.scss'
+import "./scss/style.scss";
 
 function Layout() {
   const Location = useLocation();
-  const hideNavbarRoutes = ["/", "/Onboarding1", "/Onboarding2", "/Onboarding3", "/Login", "/ForgotPass", "/ResetPass", "/Register"];
+  const hideNavbarRoutes = [
+    "/",
+    "/Onboarding1",
+    "/Onboarding2",
+    "/Onboarding3",
+    "/Login",
+    "/ForgotPass",
+    "/ResetPass",
+    "/Register",
+  ];
 
   return (
     <>
@@ -41,7 +55,7 @@ function Layout() {
         <Route path="/ResetPass" element={<ResetPassword />} />
       </Routes>
     </>
-  )
+  );
 }
 
 function App() {
@@ -56,6 +70,7 @@ function App() {
         <Route path="/Program/Pendidikan" element={<ProgramPendidikan />} />
         <Route path="/Program/Dakwah" element={<ProgramDakwah />} />
         <Route path="/FormPengajuan" element={<FormPengajuan />} />
+        <Route path="/Login" element={<Login />} />
         <Route path="/Akun" element={<Akun />} />
         <Route path="/Akun/Profil" element={<Profile />} />
         <Route path="/Akun/Profil/Edit" element={<EditProfile />} />
