@@ -1,66 +1,88 @@
-import React from "react";
-import {  useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../../../styles.css";
 
 const ProgramDakwah = () => {
-  const Navigate = useNavigate();
-  // const [openDropdown, setOpenDropdown] = useState(null);
+  const navigate = useNavigate();
+  const [bantuanList, setBantuanList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  // const toggleDropdown = (category) => {
-  //   setOpenDropdown(openDropdown === category ? null : category);
-  // };
+  useEffect(() => {
+    axios
+      .get("/api/bantuan/dakwah")
+      .then((response) => {
+        setBantuanList(response.data.bantuan || []);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Gagal memuat data bantuan:", error);
+        setError("Terjadi kesalahan saat mengambil data.");
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div className="program-page">
-      {/* Tombol Back */}
       <div className="program-bg">
-        {/* <img src="/assets/bg.png" alt="bg" className="bg-img" /> */}
-        <button className="back-button" onClick={() => Navigate("/Home")}>
-          &#8592; 
-        </button>
+      <button className="back-button" onClick={() => navigate("/Home")}>
+        &#8592; 
+      </button>
         <h2 className="program-title">Program Dakwah & Advokasi</h2>
       </div>
 
-      {/* Deskripsi Program */}
       <h3 className="section-title">PROGRAM</h3>
-      <h4 className="section-subtitle">Bantuan Rumah Layak Huni</h4>
-      <p className="program-description">
-        Program renovasi rumah yang bekerja sama dengan Kementerian Pekerjaan Umum dan Perumahan Rakyat (PUPR) untuk memenuhi kebutuhan dasar mustahik berupa tempat tinggal yang layak, memenuhi persyaratan keselamatan bangunan dan kesehatan.
-      </p>
 
-      <h4 className="section-subtitle">Bantuan Penyandang Disabilitas</h4>
-      <p className="program-description">
-        Bantuan bagi lembaga sosial Islam yang membantu penyandang disabilitas atau bagi individu penyandang disabilitas berupa kaki palsu, kursi roda atau alat pendukung aktivitas lainnya.
-      </p>
+      {loading ? (
+        <p className="program-description">Memuat data bantuan...</p>
+      ) : error ? (
+        <p className="program-description error-text">{error}</p>
+      ) : bantuanList.length === 0 ? (
+        <p className="program-description">Belum ada data bantuan untuk program ini.</p>
+      ) : (
+        bantuanList.map((item,index) => (
 
-      {/* Kegiatan */}
-      <h3 className="section-title">Kegiatan</h3>
-      <p className="program-description">
-        Injdbjdfbd... (your detailed description)
-      </p>
+          <div key={item.id} className="program-item">
+            <h4 className="section-subtitle">{index + 1}. {item.nama_bantuan}</h4>
+            <p className="program-description">
+              {item.keterangan ||
+                `Informasi mengenai ${item.nama_bantuan} akan segera ditambahkan.`}
+            </p>
 
-      {/* List Kegiatan dengan tombol dropdown */}
-      {/* <div className="activity-list">
-        <button className="activity-button" onClick={() => toggleDropdown("dakwah")}>
-          Persyaratan Permohonan Bantuan
-        </button>
-        {openDropdown === "dakwah" && (
-          <div className="dropdown-content">
-          <ul>
-            <li>1. Surat Permohonan dari Lembaga / Perorangan</li>
-            <li>2. Fotocopy KTP Ketua Pelaksana / Pengurus lainnya</li>
-            <li>3. Proposal Kegiatan/Pelaksanaan</li>
-            <li>4. Rencana Anggaran Biaya (RAB) Kegiatan</li>
-            <li>5. Dokumentasi</li>
-            <li>6. Mengisi Naskah Perjanjian Bantuan</li>
-            <li>7. Bersedia Memberikan Laporan Kegiatan (Dinyatakan Dalam Surat Pernyataan)</li>
-          </ul>
-          <button className="pengajuan-button" onClick={() => Navigate("/FormPengajuan")}>
-            Ajukan Permohonan
-          </button>
-        </div>
-        )}
-      </div> */}
+            {/* Persyaratan Umum */}
+            {item.persyaratan_umum && item.persyaratan_umum.length > 0 && (
+              <>
+                <h5 className="section-subtitle">Persyaratan Umum</h5>
+                <ul className="program-description">
+                  {item.persyaratan_umum.map((req, idx) => (
+                    <li key={`umum-${idx}`}>{req}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {/* Persyaratan Tambahan */}
+            {item.persyaratan_tambahan && item.persyaratan_tambahan.length > 0 && (
+              <>
+                <h5 className="section-subtitle">Persyaratan Tambahan</h5>
+                <ul className="program-description">
+                  {item.persyaratan_tambahan.map((req, idx) => (
+                    <li key={`tambahan-${idx}`}>{req}</li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+          </div>
+        ))
+      )}
+
+      <h3 className="section-title">KEGIATAN</h3>
+      <p className="program-description">
+        Berbagai kegiatan dakwah dan advokasi dilaksanakan untuk mendukung kesejahteraan umat,
+        termasuk penyuluhan agama, bantuan sosial, dan kolaborasi dengan lembaga terkait.
+      </p>
     </div>
   );
 };

@@ -9,32 +9,6 @@ const Akun = () => {
     <div className="akun-container">
       <header className="header">
         <h2 className="header-title">Akun</h2>
-        <button onClick={() => navigate("/Akun/FAQ")} className="faq-button">
-          <svg
-            className="faq-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <g fill="currentColor" strokeLinejoin="miter" strokeLinecap="butt">
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-                fill="none"
-                stroke="currentColor"
-                strokeMiterlimit="10"
-                strokeWidth="2"
-              ></circle>
-              <path
-                d="M12 8c1.5 0 3 1 3 2.5s-1.5 2-3 2m0 4h.01"
-                fill="none"
-                stroke="currentColor"
-                strokeMiterlimit="10"
-                strokeWidth="2"
-              ></path>
-            </g>
-          </svg>
-        </button>
       </header>
 
       <ul className="akun-list">

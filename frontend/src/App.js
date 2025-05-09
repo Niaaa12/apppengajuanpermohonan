@@ -23,10 +23,11 @@ import FormPengajuan from "./pages/FormPengajuan/FormPengajuan";
 import Akun from "./pages/Akun/Akun";
 import Profile from "./pages/Akun/Profil/Profil";
 import EditProfile from "./pages/Akun/Profil/Edit/EditProfil";
-import FAQ from "./pages/Akun/FAQ/FAQ";
 import CekStatus from "./pages/Akun/CekStatus/CekStatus";
 import Pengajuan from "./pages/Pengajuan/Pengajuan";
 import "./scss/style.scss";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Layout() {
   const Location = useLocation();
@@ -44,12 +45,19 @@ function Layout() {
   return (
     <>
       {!hideNavbarRoutes.includes(Location.pathname) && <Navbar />}
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnHover={false}
+      />
       <Routes>
         <Route path="/" element={<SplashScreen />} />
         <Route path="/Onboarding1" element={<Onboarding1 />} />
         <Route path="/Onboarding2" element={<Onboarding2 />} />
         <Route path="/Onboarding3" element={<Onboarding3 />} />
-        <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/ForgotPass" element={<ForgotPassword />} />
         <Route path="/ResetPass" element={<ResetPassword />} />
@@ -74,7 +82,6 @@ function App() {
         <Route path="/Akun" element={<Akun />} />
         <Route path="/Akun/Profil" element={<Profile />} />
         <Route path="/Akun/Profil/Edit" element={<EditProfile />} />
-        <Route path="/Akun/FAQ" element={<FAQ />} />
         <Route path="/Akun/CekStatus" element={<CekStatus />} />
         <Route path="/Pengajuan" element={<Pengajuan />} />
       </Routes>

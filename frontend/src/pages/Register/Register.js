@@ -7,30 +7,50 @@ const Register = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // State untuk pesan error
-  const Navigate = useNavigate();
+  const [phoneNumber, setPhoneNumber] = useState(""); // Tambahan
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handleRegister = (e) => {
-    e.preventDefault(); // Hindari reload halaman
+  const handleRegister = async (e) => {
+    e.preventDefault();
 
-    if (!fullName || !email || !password) {
+    if (!fullName || !email || !password || !phoneNumber) {
       setError("Semua kolom harus diisi!");
       return;
-    } else {
-      setError(""); // Reset error jika sudah diisi
     }
 
-    // Redirect ke halaman Home jika valid
-    Navigate("/Home");
+    try {
+      const response = await fetch("http://localhost:5000/api/pemohon/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: fullName,
+          email,
+          password,
+          phoneNumber,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setError("");
+        navigate("/Login");
+      } else {
+        setError(data.message || "Registrasi gagal.");
+      }
+    } catch (err) {
+      setError("Terjadi kesalahan pada server.");
+    }
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-box">
+    <div className="auth-container-register">
+      <div className="auth-box-register">
         <img src={logoBaznas} alt="Logo Baznas" />
         <h2>Welcome to BaznasCare</h2>
-        <p>Create your new account</p>
-
         <form onSubmit={handleRegister}>
           <input
             type="text"
@@ -47,6 +67,13 @@ const Register = () => {
             required
           />
           <input
+            type="text"
+            placeholder="Phone Number"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            required
+          />
+          <input
             type="password"
             placeholder="Password"
             value={password}
@@ -58,8 +85,8 @@ const Register = () => {
 
           <div className="terms">
             Dengan melanjutkan, Anda menyetujui persyaratan{" "}
-            <a href="#Login">Ketentuan Layanan</a> dan mengakui bahwa Anda telah
-            membaca <a href="#Login">Kebijakan Privasi</a>.
+            Ketentuan Layanan dan mengakui bahwa Anda telah
+            membaca Kebijakan Privasi.
           </div>
 
           <button type="submit">Register</button>

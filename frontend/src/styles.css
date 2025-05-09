@@ -11,7 +11,7 @@ body {
   display: flex;
   background: rgb(255, 255, 255);
   box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.1);
-  padding: 5px 20px;
+  padding:5px 20px;
   gap: 15px;
   z-index: 1000;
   width: 100%;
@@ -197,23 +197,39 @@ button:hover {
   height: 100vh;
   background-color: #3ea266;
 }
-
+.auth-container-register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3ea266;
+}
 .auth-box {
-  margin-top: 200px;
   background: #ffffff;
   bottom: 0px;
-  padding: 50px;
+  padding: 25px;
   border-radius: 35px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   text-align: center;
-}
 
+}
+.auth-box-register {
+  background: #ffffff;
+  bottom: 0px;
+  padding: 25px;
+  border-radius: 35px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  text-align: center;
+
+}
 .auth-box img {
   width: 140px;
   margin-bottom: 0px;
+}.auth-box-register img {
+  width: 140px;
+  margin-bottom: 0px;
 }
-
 /* Input Fields */
 .auth-box input {
   display: inline-block;
@@ -258,7 +274,49 @@ button:hover {
   text-decoration: none;
   font-weight: bold;
 }
+.auth-box-register input {
+  display: inline-block;
+  align-items: center;
+  width: 90%;
+  padding: 10px;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 
+/* Buttons */
+.auth-box-register button {
+  width: 90%;
+  padding: 10px;
+  margin: 10px auto;
+  background: #3ea266;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.auth-box-register button:hover {
+  background: #348755;
+}
+
+.auth-box-register h2 {
+  color: black;
+  margin-top: 2px;
+}
+
+/* Links */
+.auth-box-register p {
+  font-size: 14px;
+  margin-top: 10px;
+  color: black;
+}
+
+.auth-box-register a {
+  color: #2d6a4f;
+  text-decoration: none;
+  font-weight: bold;
+}
 .terms {
   font-size: 12px;
   color: #000000;
@@ -780,13 +838,6 @@ CFormInput[type="file"] {
   display: flex;
   align-items: center;
 }
-
-CFormCheck {
-  accent-color: #136a31 !important;
-  transform: scale(1.2) !important;
-  margin-right: 10px !important;
-}
-
 .custom-checkbox-size input[type="checkbox"] {
   width: 16px !important;
   height: 16px !important;
@@ -795,6 +846,16 @@ CFormCheck {
   position: relative;
   top: 0.4em !important;
 }
+.form-check-input[type="checkbox"]:checked {
+  accent-color: #136a31;
+}
+
+/* Styling khusus untuk checkbox CoreUI */
+.form-check-input[type="checkbox"] {
+  accent-color: #136a31 !important;
+  transform: scale(1.2) !important;
+}
+
 /* Submit Button */
 .d-flex.justify-content-center CButton {
   color: #ffffff !important;
@@ -1392,4 +1453,27 @@ input {
   padding: 2px 5px;
   font-size: 12px;
   color: #ffffff;
+}
+.cek-status-container {
+  padding: 16px;
+}
+
+.table-responsive-mobile {
+  overflow-x: auto;
+}
+@media (max-width: 768px) {
+  .cek-status-container .header h2 {
+    font-size: 18px;
+  }
+
+  .cek-status-container .back-button {
+    font-size: 16px;
+    padding: 6px 12px;
+  }
+
+  .cek-status-container td,
+  .cek-status-container th {
+    font-size: 13px;
+    padding: 8px;
+  }
 }

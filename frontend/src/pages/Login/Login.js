@@ -3,17 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import logobaznas from "../../assets/LOGO_BAZNAS_PADANG.png";
 import "../../styles.css";
 import axios from "axios";
+import Swal from 'sweetalert2';
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // State untuk pesan error
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/pemohon/login",
+        "/api/pemohon/login",
         {
           email,
           password,
@@ -22,7 +24,7 @@ const Login = () => {
 
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      navigate("/home"); // <- lowercase, sesuai route yang kamu buat
+      navigate("/Home");
     } catch (err) {
       setError(err.response?.data?.message || "Login gagal");
     }
@@ -32,11 +34,7 @@ const Login = () => {
     <div className="auth-container">
       <div className="auth-box">
         <img src={logobaznas} alt="Logo Baznas" />
-        <h2>Welcome Back to BaznasCare</h2>
-        <p>
-          Nikmati kemudahan sistem autentikasi tunggal untuk mengakses semua
-          layanan dengan satu akun
-        </p>
+        <h2>Welcome to BaznasCare</h2>
 
         <form onSubmit={handleLogin}>
           <input
@@ -58,8 +56,25 @@ const Login = () => {
           {error && <p className="error-message">{error}</p>}
 
           <div className="forgot-pass">
-            <Link to="/ForgotPass">Forgot Password?</Link>
-          </div>
+  <a
+    href="#"
+    onClick={(e) => {
+      e.preventDefault();
+      Swal.fire({
+        title: 'Lupa Password?',
+        html: `
+          <p>Silakan hubungi admin melalui:</p>
+          <p><strong>Email:</strong> admin@example.com</p>
+          <p><strong>WhatsApp:</strong> 0812-3456-7890</p>
+        `,
+        icon: 'info',
+        confirmButtonText: 'Tutup'
+      });
+    }}
+  >
+    Forgot Password?
+  </a>
+</div>
 
           <button type="submit" className="login-button">
             Login
