@@ -8,7 +8,7 @@ const path = require('path');
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cors());
 
@@ -68,8 +68,8 @@ app.post('/api/pemohon/register', (req, res) => {
       }
 
       const insertQuery = `
-        INSERT INTO users (name, email, password_hash, phone)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO users (name, email, password_hash, phone,role)
+        VALUES (?, ?, ?, ?,"Pemohon")
       `;
       db.query(insertQuery, [name, email, hashedPassword, phoneNumber], (err, result) => {
         if (err) {
