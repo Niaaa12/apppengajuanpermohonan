@@ -8,7 +8,7 @@ const path = require('path');
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use(cors());
 
@@ -29,7 +29,7 @@ const upload = multer({
       ? cb(null, true)
       : cb(new Error('Hanya PDF yang diperbolehkan!'))
 });
-// Koneksi ke database MySQL
+
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -51,7 +51,7 @@ app.post('/api/pemohon/register', (req, res) => {
     return res.status(400).json({ message: 'Semua field harus diisi' });
   }
 
-  // Cek apakah email sudah digunakan
+
   const checkQuery = 'SELECT id FROM users WHERE email = ?';
   db.query(checkQuery, [email], (err, results) => {
     if (err) {
@@ -61,7 +61,7 @@ app.post('/api/pemohon/register', (req, res) => {
       return res.status(409).json({ message: 'Email sudah terdaftar' });
     }
 
-    // Hash password dan simpan user
+
     bcrypt.hash(password, 10, (err, hashedPassword) => {
       if (err) {
         return res.status(500).json({ message: 'Gagal mengenkripsi password', error: err.message });
@@ -113,15 +113,15 @@ app.get('/api/pemohon/profile', (req, res) => {
     return res.status(401).json({ message: 'Token required' });
   }
 
-  const token = authHeader.split(' ')[1]; // "Bearer <token>"
+  const token = authHeader.split(' ')[1]; 
 
-  // Decode tanpa verifikasi signature (untuk demo/project pribadi)
+
   const payload = jwt.decode(token);
   if (!payload || !payload.id) {
     return res.status(400).json({ message: 'Token invalid' });
   }
 
-  // Query data user dari database
+
   const query = `
     SELECT
       id,
@@ -141,15 +141,15 @@ app.get('/api/pemohon/profile', (req, res) => {
       return res.status(404).json({ message: 'User tidak ditemukan' });
     }
 
-    // Return data profil
+
     res.json({ user: results[0] });
   });
 });
 
 
-// Endpoint grouped tanpa promise, menggunakan callback
+
 app.get('/api/bantuan/grouped', (req, res) => {
-  // 1. Fetch semua bantuan
+
   const sqlBantuan = `
     SELECT id, nama_bantuan, jenis_program
     FROM bantuan
@@ -160,7 +160,7 @@ app.get('/api/bantuan/grouped', (req, res) => {
       console.error(errB);
       return res.status(500).json({ message: 'Error fetching bantuan', error: errB.message });
     }
-    // 2. Fetch semua persyaratan (umum + tambahan)
+
     const sqlPers = `
       SELECT bantuan_id, nama_persyaratan FROM persyaratan_umum
       UNION ALL
@@ -171,13 +171,13 @@ app.get('/api/bantuan/grouped', (req, res) => {
         console.error(errP);
         return res.status(500).json({ message: 'Error fetching persyaratan', error: errP.message });
       }
-      // 3. Group persyaratan per bantuan_id
+
       const reqMap = {};
       persyaratans.forEach(row => {
         if (!reqMap[row.bantuan_id]) reqMap[row.bantuan_id] = [];
         reqMap[row.bantuan_id].push(row.nama_persyaratan);
       });
-      // 4. Tambahkan requirements dan 5. Group menurut jenis_program
+
       const grouped = [];
       bantuans.forEach(b => {
         const item = {
@@ -197,14 +197,13 @@ app.get('/api/bantuan/grouped', (req, res) => {
   });
 });
 
-// API Untuk Mendapatkan Persyaratan Program
+
 app.get('/api/program/:id/requirements', (req, res) => {
   const jenisbantuanId = req.params.id;
 
   const sqlUmum = `SELECT nama_persyaratan FROM persyaratan_umum WHERE bantuan_id = ?`;
   const sqlTambahan = `SELECT nama_persyaratan FROM persyaratan_tambahan WHERE bantuan_id = ?`;
 
-  // Jalankan dua query paralel
   db.query(sqlUmum, [jenisbantuanId], (err, umumResults) => {
     if (err) {
       return res.status(500).json({
@@ -263,7 +262,6 @@ app.post('/api/pengajuan', upload.single('document'), (req, res) => {
       userId
     } = req.body;
 
-    // 1. Validasi
     const errors = [];
     if (!fullName) errors.push('Nama lengkap harus diisi');
     if (!/^[0-9]{16}$/.test(nik)) errors.push('NIK harus 16 digit angka');
@@ -273,11 +271,9 @@ app.post('/api/pengajuan', upload.single('document'), (req, res) => {
       return res.status(400).json({ success: false, message: 'Validasi gagal', errors });
     }
 
-    // 2. Siapkan data
     const originalName = req.file.originalname;
     const fileName     = req.file.filename;
 
-    // 3. Insert ke pengajuan_bantuan
     const sql1 = `
       INSERT INTO pengajuan_bantuan (
         full_name, nik, no_kk, tempat_lahir, tanggal_lahir,
@@ -300,7 +296,6 @@ app.post('/api/pengajuan', upload.single('document'), (req, res) => {
 
       const pengajuanId = result1.insertId;
 
-      // 4. Insert ke permohonan
       const sql2 = `
         INSERT INTO permohonan (
           pengajuan_id, user_id, bantuan_id
@@ -314,7 +309,6 @@ app.post('/api/pengajuan', upload.single('document'), (req, res) => {
           return res.status(500).json({ success: false, message: 'Gagal menyimpan ke tabel permohonan', error: err2.message });
         }
 
-        // 5. Balas sukses
         res.status(201).json({
           success: true,
           message: 'Pengajuan berhasil dikirim',
@@ -384,7 +378,6 @@ app.put("/api/pemohon/change-password", (req, res) => {
       return res.status(400).json({ message: "Password lama dan baru harus diisi" });
     }
 
-    // Cari user
     const query = "SELECT * FROM users WHERE email = ?";
     db.query(query, [email], (err, results) => {
       if (err) return res.status(500).json({ message: "Database error" });
@@ -392,12 +385,11 @@ app.put("/api/pemohon/change-password", (req, res) => {
 
       const user = results[0];
 
-      // Cek password lama
+
       bcrypt.compare(oldPassword, user.password_hash, (err, isMatch) => {
         if (err) return res.status(500).json({ message: "Error saat verifikasi password" });
         if (!isMatch) return res.status(401).json({ message: "Password lama salah" });
 
-        // Hash password baru
         bcrypt.hash(newPassword, 10, (err, hashedPassword) => {
           if (err) return res.status(500).json({ message: "Gagal mengenkripsi password baru" });
 
@@ -412,7 +404,7 @@ app.put("/api/pemohon/change-password", (req, res) => {
   });
 });
 
-// CEK STATUS: /api/cekstatus
+
 app.get('/api/cekstatus', (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
@@ -422,7 +414,6 @@ app.get('/api/cekstatus', (req, res) => {
   const token = authHeader.split(' ')[1];
   let payload;
   try {
-    // Verifikasi signature JWT
     payload = jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
     return res.status(401).json({ message: 'Token invalid' });
@@ -519,5 +510,5 @@ app.get('/api/bantuan/:jenisProgram', (req, res) => {
 
 
 app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
+  console.log(`Server berjalan di port ${PORT}`);
 });
