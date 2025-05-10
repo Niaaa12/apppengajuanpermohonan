@@ -508,6 +508,18 @@ app.get('/api/bantuan/:jenisProgram', (req, res) => {
   });
 });
 
+// download file untuk web admin
+app.get('/api/files/:namafile', (req, res) => {
+  const namafile = req.params.namafile;
+  const linkfile = path.join(__dirname, 'uploads', namafile);
+
+  res.download(linkfile, (err) => {
+    if (err) {
+      console.error('Gagal download file:', err);
+      res.status(404).json({ message: 'File tidak ditemukan' });
+    }
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server berjalan di port ${PORT}`);

@@ -2,7 +2,7 @@
   "name": "app_mobile",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:6000",
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@coreui/chartjs": "^4.0.0",
     "@coreui/coreui": "^5.2.0",
