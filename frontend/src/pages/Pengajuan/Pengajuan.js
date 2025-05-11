@@ -28,10 +28,10 @@ const Pengajuan = () => {
 
   return (
     <div className="pengajuan-page">
-      <h2 className="section-title">
-        Syarat Permohonan Bantuan Program BAZNAS Kota Padang
-      </h2>
       <div className="dropdown-container" ref={dropdownRef}>
+        <h2 className="section-title">
+          Syarat Permohonan Bantuan Program BAZNAS Kota Padang
+        </h2>
         {programs.map((program) => (
           <div className="btn-group dropdown" key={program.jenis_program}>
             <button

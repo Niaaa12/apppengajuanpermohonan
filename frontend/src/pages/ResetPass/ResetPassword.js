@@ -65,7 +65,7 @@ const ResetPassword = () => {
       </button>
       <div className="reset-password-container">
         <div className="header">
-          <h2>Reset Password</h2>
+          <h2>Ubah Password</h2>
         </div>
 
         <p className="instruction">
@@ -101,7 +101,7 @@ const ResetPassword = () => {
           />
 
           <button type="submit" className="button-reset">
-            Reset Password
+            Ubah Password
           </button>
         </form>
       </div>
