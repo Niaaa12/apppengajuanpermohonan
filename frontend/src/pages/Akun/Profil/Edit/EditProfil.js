@@ -17,9 +17,9 @@ const EditProfile = () => {
       return;
     }
 
-    // Fetch current profile data
+
     axios
-      .get("http://localhost:5000/api/pemohon/profile", {
+      .get("/api/pemohon/profile", {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then((res) => {
