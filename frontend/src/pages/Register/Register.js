@@ -50,7 +50,7 @@ const Register = () => {
     <div className="auth-container-register">
       <div className="auth-box-register">
         <img src={logoBaznas} alt="Logo Baznas" />
-        <h2>Welcome to BaznasCare</h2>
+        <h2>Welcome to SIPADU</h2>
         <form onSubmit={handleRegister}>
           <input
             type="text"
@@ -84,9 +84,8 @@ const Register = () => {
           {error && <p className="error-message">{error}</p>}
 
           <div className="terms">
-            Dengan melanjutkan, Anda menyetujui persyaratan{" "}
-            Ketentuan Layanan dan mengakui bahwa Anda telah
-            membaca Kebijakan Privasi.
+            Dengan melanjutkan, Anda menyetujui persyaratan Ketentuan Layanan
+            dan mengakui bahwa Anda telah membaca Kebijakan Privasi.
           </div>
 
           <button type="submit">Register</button>
